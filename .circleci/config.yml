@@ -1,0 +1,25 @@
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+  - image: toxicbakery/alpine-glibc-android:release-1.2.0
+  environment:
+    TERM: dumb
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+    - checkout
+    - run:
+        name: Execute Gradle
+        command: |
+          ./gradlew build --no-daemon
+workflows:
+  version: 2
+  build:
+    jobs:
+    - build:
+        filters:
+          tags:
+            only: /.*/

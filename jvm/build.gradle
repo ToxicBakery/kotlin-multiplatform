@@ -1,0 +1,27 @@
+apply plugin: 'kotlin-platform-jvm'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+dependencies {
+    testImplementation "org.jetbrains.kotlin:kotlin-test-annotations-common"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+    testImplementation "junit:junit:4.12"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
+    expectedBy project(':common')
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.kotlin
+}
+
+artifacts {
+    archives sourcesJar
+}
