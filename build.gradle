@@ -1,15 +1,24 @@
 buildscript {
-    ext.kotlin_version = '1.2.70'
+    ext.kotlin_version = '1.2.71'
     repositories {
         mavenCentral()
         jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://dl.bintray.com/kotlin/kotlin-eap" }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.37"
     }
 }
 
 allprojects {
     group 'com.toxicbakery.multiplatform'
     version '1.0-SNAPSHOT'
+
+    repositories {
+        jcenter()
+        google()
+        maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
+    }
 }
