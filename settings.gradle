@@ -3,4 +3,5 @@ include ':common'
 include ':jvm'
 include ':js'
 
+include ':browser'
 include ':swing'
