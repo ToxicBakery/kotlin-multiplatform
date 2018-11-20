@@ -3,11 +3,11 @@ apply plugin: 'kotlin2js'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-test-js"
-    testCompile project(":js")
+    testCompile project(":common")
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-js"
     compile "org.jetbrains.kotlinx:kotlinx-html-js:0.6.11"
-    compile project(":js")
+    compile project(":common")
 }
 
 def outputDir = "${projectDir}/web"
