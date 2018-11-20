@@ -1,3 +1,7 @@
+plugins {
+    id "org.jetbrains.intellij" version "0.3.12"
+}
+
 apply plugin: 'kotlin'
 apply plugin: 'application'
 
@@ -5,5 +9,10 @@ mainClassName = 'com.toxicbakery.multiplatform.Main'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "com.intellij:forms_rt:7.0.3"
     implementation project(':common')
+}
+
+sourceSets {
+    main.java.srcDirs += "src/main/kotlin"
 }
