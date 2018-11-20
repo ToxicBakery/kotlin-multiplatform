@@ -1,19 +1,39 @@
-apply plugin: 'kotlin-platform-common'
-
-sourceCompatibility = 1.8
-
-dependencies {
-    testImplementation "org.jetbrains.kotlin:kotlin-test-annotations-common"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-common"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-common"
+plugins {
+    id 'kotlin-multiplatform'
+    id 'maven-publish'
+    id 'com.github.salomonbrys.gradle.kotlin.js.mpp-tests.node'
 }
 
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.kotlin
-}
+kotlin {
+    targets {
+        fromPreset(presets.jvm, 'jvm')
+        fromPreset(presets.js, 'js') {
+            tasks[compilations.main.compileKotlinTaskName].kotlinOptions.moduleKind = "umd"
+            kotlinJsNodeTests {
+                thisTarget(js)
+            }
+        }
+    }
 
-artifacts {
-    archives sourcesJar
+    sourceSets {
+        commonMain.dependencies {
+            api "org.jetbrains.kotlin:kotlin-stdlib-common"
+        }
+        commonTest.dependencies {
+            implementation "org.jetbrains.kotlin:kotlin-test-common"
+            implementation "org.jetbrains.kotlin:kotlin-test-annotations-common"
+        }
+        jsMain.dependencies {
+            api "org.jetbrains.kotlin:kotlin-stdlib-js"
+        }
+        jsTest.dependencies {
+            implementation "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+        }
+        jvmMain.dependencies {
+            api 'org.jetbrains.kotlin:kotlin-stdlib'
+        }
+        jvmTest.dependencies {
+            implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+        }
+    }
 }

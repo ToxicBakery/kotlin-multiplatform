@@ -5,5 +5,5 @@ mainClassName = 'com.toxicbakery.multiplatform.Main'
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation project(':jvm')
+    implementation project(':common')
 }
