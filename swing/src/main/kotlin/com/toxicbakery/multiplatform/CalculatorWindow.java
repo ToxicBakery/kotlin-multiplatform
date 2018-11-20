@@ -1,5 +1,6 @@
 package com.toxicbakery.multiplatform;
 
+import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
 
@@ -30,15 +31,11 @@ public class CalculatorWindow {
     private JButton buttonActionClear;
     private JButton buttonActionPower;
 
-    private Calculator calculator = new Calculator(
-            (Function0) () -> textFieldInput.getText(),
-            (Function1) value -> {
-                textFieldInput.setText((String) value);
-                return this;
-            }
-    );
+    public CalculatorWindow(CalculatorFactory calculatorFactory) {
+        Calculator calculator = calculatorFactory.create(
+                this::readResult,
+                this::writeResult);
 
-    public CalculatorWindow() {
         buttonNumberZero.addActionListener(e -> calculator.processAction(ACTION_ZERO));
         buttonNumberOne.addActionListener(e -> calculator.processAction(ACTION_ONE));
         buttonNumberTwo.addActionListener(e -> calculator.processAction(ACTION_TWO));
@@ -57,6 +54,23 @@ public class CalculatorWindow {
         buttonActionDivide.addActionListener(e -> calculator.processAction(ACTION_DIVIDE));
         buttonActionClear.addActionListener(e -> calculator.processAction(ACTION_CLEAR));
         buttonActionPower.addActionListener(e -> calculator.processAction(ACTION_POWER));
+    }
+
+    private String readResult() {
+        return textFieldInput.getText();
+    }
+
+    private Unit writeResult(String value) {
+        textFieldInput.setText(value);
+        return Unit.INSTANCE;
+    }
+
+    interface CalculatorFactory {
+
+        Calculator create(
+                Function0<String> input,
+                Function1<String, Unit> output);
+
     }
 
 }

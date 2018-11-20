@@ -7,7 +7,7 @@ class Main {
         @JvmStatic
         fun main(args: Array<String>) {
             JFrame("Calculator").apply {
-                contentPane = CalculatorWindow().calculatorView
+                contentPane = CalculatorWindow(::Calculator).calculatorView
                 defaultCloseOperation = JFrame.EXIT_ON_CLOSE
                 pack()
                 isVisible = true

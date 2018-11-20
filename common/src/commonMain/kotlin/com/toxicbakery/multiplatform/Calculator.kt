@@ -10,7 +10,7 @@ class Calculator(
 
     fun processAction(action: String) {
         when (action) {
-            ACTION_CLEAR -> writeResult("")
+            ACTION_CLEAR -> writeResult(ACTION_ZERO)
             ACTION_ENTER -> calculate()
             ACTION_DECIMAL -> handleDecimalInput()
             else -> handleActionInput(action)
@@ -27,8 +27,8 @@ class Calculator(
         if (actionIsOperation(action))
             handleOperationInput(action)
         else {
-            if ("0" == readResult()) processAction(ACTION_CLEAR)
-            appendToInput(action)
+            if (ACTION_ZERO == readResult()) replaceLastInputWith(action)
+            else appendToInput(action)
         }
     }
 
@@ -62,14 +62,15 @@ class Calculator(
                         right = NumericValue(right.toDouble())
                 )
 
-        writeResult(resultValue.input.toString())
-        cleanInput()
+        writeCleanResult(resultValue.input.toString())
     }
 
-    private fun cleanInput() {
-        val inputText = readResult()
-        if (inputText.endsWith(".0")) writeResult(inputText.substring(0, inputText.length - 2))
-    }
+    private fun writeCleanResult(result: String) = result
+            .let { output ->
+                if (output.endsWith(".0")) output.substring(0, output.length - 2)
+                else output
+            }
+            .let(writeResult)
 
     private fun convertOperation(operation: String): NumericOperation = when (operation) {
         ACTION_ADDITION -> AdditionOperation()

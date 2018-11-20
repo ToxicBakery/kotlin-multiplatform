@@ -62,7 +62,7 @@ class CalculatorTest {
                 readResult = { output },
                 writeResult = { result -> output = result }
         ).processAction(Calculator.ACTION_CLEAR)
-        assertEquals("", output)
+        assertEquals("0", output)
     }
 
     @Test
