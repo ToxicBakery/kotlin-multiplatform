@@ -5,7 +5,7 @@ import com.toxicbakery.multiplatform.operation.*
 
 class Calculator(
         private val readResult: () -> String,
-        private val writeResult: (String) -> Unit
+        private val writeResult: (result: String) -> Unit
 ) {
 
     fun processAction(action: String) {
@@ -33,7 +33,7 @@ class Calculator(
     }
 
     private fun handleOperationInput(operation: String) {
-        if (isLastInputIsOperation())
+        if (wasLastInputAnOperation())
             replaceLastInputWith(operation)
         else {
             if (inputContainsOperation()) calculate()
@@ -71,24 +71,20 @@ class Calculator(
         if (inputText.endsWith(".0")) writeResult(inputText.substring(0, inputText.length - 2))
     }
 
-    private fun convertOperation(operation: String): NumericOperation {
-        when (operation) {
-            ACTION_ADDITION -> return AdditionOperation()
-            ACTION_SUBTRACT -> return SubtractionOperation()
-            ACTION_MULTIPLY -> return MultiplicationOperation()
-            ACTION_DIVIDE -> return DivisionOperation()
-            ACTION_POWER -> return PowerOperation()
-            else -> throw RuntimeException("Unhandled operation $operation")
-        }
+    private fun convertOperation(operation: String): NumericOperation = when (operation) {
+        ACTION_ADDITION -> AdditionOperation()
+        ACTION_SUBTRACT -> SubtractionOperation()
+        ACTION_MULTIPLY -> MultiplicationOperation()
+        ACTION_DIVIDE -> DivisionOperation()
+        ACTION_POWER -> PowerOperation()
+        else -> throw RuntimeException("Unhandled operation $operation")
     }
 
-    private fun isLastInputIsOperation(): Boolean {
+    private fun wasLastInputAnOperation(): Boolean {
         val inputText = readResult()
-        if (inputText.length == 0) return false
-        val lastCharacter = inputText.get(inputText.length - 1).toString()
-        for (operation in OPERATIONS)
-            if (lastCharacter == operation) return true
-        return false
+        if (inputText.isEmpty()) return false
+        val lastCharacter = inputText[inputText.length - 1].toString()
+        return OPERATIONS.firstOrNull { operation -> lastCharacter == operation } != null
     }
 
     private fun inputContainsOperation(): Boolean {
