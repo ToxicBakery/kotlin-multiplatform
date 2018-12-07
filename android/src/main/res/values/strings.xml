@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">MPP Calculator</string>
+    <string name="calc_pow">Pow</string>
+    <string name="calc_clear">Clear</string>
+    <string name="calc_one">1</string>
+    <string name="calc_two">2</string>
+    <string name="calc_three">3</string>
+    <string name="calc_addition">+</string>
+    <string name="calc_four">4</string>
+    <string name="calc_five">5</string>
+    <string name="calc_six">6</string>
+    <string name="calc_subtraction">-</string>
+    <string name="calc_seven">7</string>
+    <string name="calc_eight">8</string>
+    <string name="calc_nine">9</string>
+    <string name="calc_multiply">*</string>
+    <string name="calc_decimal">.</string>
+    <string name="calc_zero">0</string>
+    <string name="calc_enter">Enter</string>
+    <string name="calc_divide">/</string>
+</resources>
