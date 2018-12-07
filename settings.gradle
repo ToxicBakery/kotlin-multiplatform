@@ -3,3 +3,6 @@ include ':common'
 
 include ':browser'
 include ':swing'
+include ':android'
+
+enableFeaturePreview('GRADLE_METADATA')

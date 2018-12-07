@@ -1,11 +1,25 @@
 plugins {
+    id 'com.android.library'
     id 'kotlin-multiplatform'
     id 'maven-publish'
     id 'com.github.salomonbrys.gradle.kotlin.js.mpp-tests.node'
 }
 
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 15
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
 kotlin {
     targets {
+        fromPreset(presets.android, 'android')
         fromPreset(presets.jvm, 'jvm')
         fromPreset(presets.js, 'js') {
             tasks[compilations.main.compileKotlinTaskName].kotlinOptions.moduleKind = "umd"
@@ -34,6 +48,18 @@ kotlin {
         }
         jvmTest.dependencies {
             implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+        }
+        androidMain {
+            dependsOn jvmMain
+            dependencies {
+                api 'org.jetbrains.kotlin:kotlin-stdlib'
+            }
+        }
+        androidTest{
+            dependsOn jvmTest
+            dependencies {
+                implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+            }
         }
     }
 }
