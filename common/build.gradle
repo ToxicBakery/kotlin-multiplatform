@@ -32,6 +32,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api "org.jetbrains.kotlin:kotlin-stdlib-common"
+            api "com.ToxicBakery.logging:common-metadata:1.20"
         }
         commonTest.dependencies {
             implementation "org.jetbrains.kotlin:kotlin-test-common"
@@ -39,12 +40,14 @@ kotlin {
         }
         jsMain.dependencies {
             api "org.jetbrains.kotlin:kotlin-stdlib-js"
+            api "com.ToxicBakery.logging:arbor-js:1.20"
         }
         jsTest.dependencies {
             implementation "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
         }
         jvmMain.dependencies {
             api 'org.jetbrains.kotlin:kotlin-stdlib'
+            api "com.ToxicBakery.logging:arbor-jvm:1.20"
         }
         jvmTest.dependencies {
             implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"

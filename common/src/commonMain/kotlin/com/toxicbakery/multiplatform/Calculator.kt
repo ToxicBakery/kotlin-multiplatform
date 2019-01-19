@@ -1,5 +1,6 @@
 package com.toxicbakery.multiplatform
 
+import com.toxicbakery.logging.Arbor
 import com.toxicbakery.multiplatform.model.NumericValue
 import com.toxicbakery.multiplatform.operation.*
 
@@ -9,6 +10,7 @@ class Calculator(
 ) {
 
     fun processAction(action: String) {
+        Arbor.d("processAction($action)")
         when (action) {
             ACTION_CLEAR -> writeResult(ACTION_ZERO)
             ACTION_ENTER -> calculate()
