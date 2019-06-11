@@ -91,7 +91,7 @@ class Calculator(
     }
 
     private fun inputContainsOperation(): Boolean {
-        val inputText = readResult()
+        val inputText = readResult().removePrefix("-")
         for (operation in OPERATIONS)
             if (inputText.contains(operation)) return true
         return false
